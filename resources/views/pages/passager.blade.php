@@ -18,7 +18,7 @@
                             tous vos déplacements locaux.               
                         </p>
                         <p class="d-flex justify-content-center">
-                            <button class="btn btn-outline-dark">INSCRIPTION</button>
+                            <a href="{{ route('register.index', "passager") }}" class="btn btn-outline-dark">INSCRIPTION</a>
                         </p>
                     </div>
                 </div>

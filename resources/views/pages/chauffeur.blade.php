@@ -18,7 +18,7 @@
                             emploi du temps simplement.               
                         </p>
                         <p class="d-flex justify-content-center">
-                            <button class="btn btn-outline-dark">Devenir chauffeur SAMA TAXI</button>
+                            <a href="{{ route('register.index', "chauffeur") }}" class="btn btn-outline-dark">Devenir chauffeur SAMA TAXI</a>
                         </p>
                     </div>
                 </div>

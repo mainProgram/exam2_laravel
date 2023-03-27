@@ -36,14 +36,23 @@
                 <li><a class="dropdown-item" href="{{ route('business.index')}}#nf">Nos forfaits</a></li>
               </ul>
             </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link  dropdown-toggle" href="#" data-bs-toggle="dropdown">Inscription</a>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Compte passager</a></li>
-                <li><a class="dropdown-item" href="#">Compte chauffeur</a></li>
-                <li><a class="dropdown-item" href="#">Compte business</a></li>
-              </ul>
-            </li>
+            @if(!(auth()->check()))
+              <li class="nav-item dropdown">
+                <a class="nav-link  dropdown-toggle" href="#" data-bs-toggle="dropdown">Inscription</a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="{{ route('register.index', "passager")}}">Compte passager</a></li>
+                  <li><a class="dropdown-item" href="{{ route('register.index', "chauffeur")}}">Compte chauffeur</a></li>
+                  <li><a class="dropdown-item" href="{{ route('register.index', "business")}}">Compte business</a></li>
+                </ul>
+              </li>
+            @else
+              <form method="POST" action="{{ route('logout') }}">
+                @csrf
+                <li class="nav-item">
+                    <button class="btn btn-outline-dark" type="submit">Déconnexion</button>
+                </li>
+            </form>
+            @endif
           </ul>
         </div>
       </div>

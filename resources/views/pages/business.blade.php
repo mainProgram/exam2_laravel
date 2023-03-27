@@ -19,7 +19,10 @@
                             Nos solutions Faster Business répondent
                             à toutes vos problématiques de mobilité.               
                         </p>
-                        <p class="d-flex justify-content-center">
+                        <p class="d-flex justify-content-around">
+                            <a class="btn btn-outline-dark" href="{{ route('register.index', "business")}}">Inscription</a>
+                        </p>
+                        <p class="d-flex justify-content-around">
                             <a class="btn btn-outline-dark" href="#nf">Découvrez les offres Faster Business</a>
                         </p>
                     </div>
