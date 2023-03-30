@@ -45,6 +45,9 @@
                   <li><a class="dropdown-item" href="{{ route('register.index', 'business')}}">Compte business</a></li>
                 </ul>
               </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="{{ route('login')}}">Connexion</a>
+              </li>
             @else
               <form method="POST" action="{{ route('logout') }}">
                 @csrf
@@ -52,9 +55,6 @@
                     <button class="btn btn-outline-dark" type="submit">Déconnexion</button>
                 </li>
             </form>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('login')}}">Connexion</a>
-            </li>
             @endif
           </ul>
         </div>
