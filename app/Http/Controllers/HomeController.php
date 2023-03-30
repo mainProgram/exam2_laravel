@@ -29,7 +29,26 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('welcome');
+        if(!Auth::check())
+            return view('welcome');
+        else{
+            $user = User::findOrFail(Auth::user()->id);
+
+            if($user->hasRole("passager")){
+                return view("pages.passagers.index");
+            }
+            else if($user->hasRole("chauffeur")){
+                return view("pages.chauffeurs.index");
+            }
+            else if($user->hasRole("business"))
+            {
+                return view("pages.business.index");
+            }
+            else if($user->hasRole("admin"))
+            {
+                return view("pages.admin.index");
+            }
+        }
     }
 
     public function about()

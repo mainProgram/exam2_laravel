@@ -2,6 +2,33 @@
   color:#dbc64c;
 }
 
+footer {
+    position: fixed;
+    height: 50px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    margin-bottom: 0px;
+}
+i{
+  color: #dbc64c;
+}
+
+.pagination > li > a,
+.pagination > li > span {
+    background-color: #dbc64c !important;
+    border-color: #dbc64c !important;
+    color: #fff !important;
+}
+.pagination > li > a:hover,
+.pagination > li > a:focus,
+.pagination > li > span:hover,
+.pagination > li > span:focus {
+    background-color: #fff !important;
+    border-color: #fff !important;
+    color: #dbc64c !important;
+}
+
 html {
   overflow-x: hidden;
 }
@@ -10,6 +37,7 @@ body {
   font-family: "Poppins", sans-serif;
   color: #0c0c0c;
   background-color: #ffffff;
+  margin-bottom:50px;
 }
 
 .layout_padding {
