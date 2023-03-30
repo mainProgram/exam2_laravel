@@ -6,13 +6,18 @@
     <div class="container">
         <h3 class="text-center my-5">
             Liste des courses 
-            <a href="{{ route("course.create") }}">
-                <i class="fa fa-plus"></i>
-            </a>
+            @if(!Auth::user()->hasRole("chauffeur"))
+                <a href="{{ route("course.create") }}">
+                    <i class="fa fa-plus"></i>
+                </a>
+            @endif
         </h3>
 
         @if(session()->has('success'))
             <div class="alert alert-success mb-2" id="alert">{{ session()->get('success') }}</div>
+        @endif
+        @if(session()->has('danger'))
+            <div class="alert alert-danger mb-2" id="alert">{{ session()->get('danger') }}</div>
         @endif
 
         @if(count($courses) > 0)
@@ -22,8 +27,12 @@
                     <th>Heure de départ</th>
                     <th>Heure d'arrivée</th>
                     <th>Itinéraire</th>
-                    <th>Chauffeur</th>
-                    <th>Passager</th>
+                    @if(!Auth::user()->hasRole("chauffeur"))
+                        <th>Chauffeur</th>
+                    @endif
+                    @if(!Auth::user()->hasRole("passager"))
+                        <th>Passager</th>
+                    @endif
                     <th>État</th>
                     <th>Actions</th>
                 </thead>
@@ -32,18 +41,32 @@
                     <tr>
                         <td>{{ ($course->date) }}</td>
                         <td>{{ ($course->heure_depart) }}</td>
-                        <td>{{ ($course->heure_arrivee) }}</td>
+                        <td>@if($course->heure_arrivee == "")  --- @else{{$course->heure_arrivee}} @endif</td>
                         <td>{{ ucwords($course->litineraire->lieuDepart->nom) }} - {{ ucwords($course->litineraire->lieuArrivee->nom) }} - {{ ucwords($course->litineraire->tarif)}}</td>
-                        <td>{{ ucwords($course->lechauffeur->prenom) }} {{ ucwords($course->lechauffeur->nom) }}</td>
-                        <td>{{ ucwords($course->lepassager->prenom) }} {{ ucwords($course->lepassager->nom) }}</td>
-                        <td>{{ ucwords($course->etat) }}</td>
-                        <td colspan="2">
-                            <a href="{{ route('course.edit', $course->id ) }}">
-                                <i class="fa fa-edit mx-2"></i>
-                            </a>
-                            <a data-id="{{ $course->id }}" class="delete" role="button">
-                                <i class="fas fa-trash"></i>
-                            </a>
+                        @if(!Auth::user()->hasRole("chauffeur"))
+                            <td>{{ ucwords($course->lechauffeur->prenom) }} {{ ucwords($course->lechauffeur->nom) }}</td>
+                        @endif
+                        @if(!Auth::user()->hasRole("passager"))    
+                            <td>{{ ucwords($course->lepassager->prenom) }} {{ ucwords($course->lepassager->nom) }}</td>
+                        @endif
+                        <td class="text-info">@if ($course->etat == "valide") --- 
+                            @elseif($course->etat =="termine") Terminée
+                            @elseif($course->etat =="annule") Annulée
+                            @endif
+                        </td>
+                        <td>
+                            <form action="{{ route('course.change', [$course->id, 'termine']) }}" method="POST">
+                                @csrf
+                                <button type="submit" class="btn btn-outline-success p-1">
+                                    Terminer
+                                </button>
+                            </form>
+                            <form action="{{ route('course.change', [$course->id, 'annule']) }}" method="POST">
+                                @csrf
+                                <button type="submit" class="btn btn-outline-danger p-1">
+                                    Annuler
+                                </button>
+                            </form>
                         </td>
                     </tr>
                     @endforeach

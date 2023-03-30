@@ -9,32 +9,67 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <div class="d-flex ml-auto flex-column flex-lg-row align-items-center">
-          <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('home')}}">Accueil</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('endroit.index')}}">Endroits</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('itineraire.index')}}">Itinéraires</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('course.index')}}">Courses</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('passagers.index')}}">Passagers</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('chauffeur.index')}}">Chauffeurs</a>
-            </li>
-            <li class="nav-item">
-                <form method="POST" action="{{ route('logout') }}">
-                  @csrf
-                  <button class="btn btn-outline-dark" type="submit">Déconnexion</button>
-                </form>
+          @if(Auth::user()->hasRole("admin"))
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                  <a class="nav-link" href="{{ route('home')}}">Accueil</a>
               </li>
-          </ul>
+              <li class="nav-item">
+                  <a class="nav-link" href="{{ route('endroit.index')}}">Endroits</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="{{ route('itineraire.index')}}">Itinéraires</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="{{ route('course.index')}}">Courses</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="{{ route('passagers.index')}}">Passagers</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="{{ route('chauffeur.index')}}">Chauffeurs</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="{{ route('business.index')}}">Business</a>
+              </li>
+              <li class="nav-item">
+                  <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button class="btn btn-outline-dark" type="submit">Déconnexion</button>
+                  </form>
+                </li>
+            </ul>
+          @elseif(Auth::user()->hasRole("chauffeur"))
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                  <a class="nav-link" href="{{ route('home')}}">Accueil</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="{{ route('course.index')}}">Courses</a>
+              </li>
+              <li class="nav-item">
+                  <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button class="btn btn-outline-dark" type="submit">Déconnexion</button>
+                  </form>
+                </li>
+            </ul>
+          @elseif(Auth::user()->hasRole("passager"))
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                  <a class="nav-link" href="{{ route('home')}}">Accueil</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="{{ route('course.index')}}">Courses</a>
+              </li>
+              <li class="nav-item">
+                  <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button class="btn btn-outline-dark" type="submit">Déconnexion</button>
+                  </form>
+                </li>
+            </ul>
+          @endif
         </div>
       </div>
     </nav>

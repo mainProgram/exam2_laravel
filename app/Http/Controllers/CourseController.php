@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Course;
 use App\Models\Itineraire;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreCourseRequest;
 use App\Http\Requests\UpdateCourseRequest;
 
@@ -15,7 +16,17 @@ class CourseController extends Controller
      */
     public function index()
     {
-        $courses = Course::paginate(8);
+        $user = User::findOrFail(Auth::user()->id);
+        if($user->hasRole("admin"))
+        {
+            $courses = Course::paginate(8);
+        }
+        else if($user->hasRole("passager")){
+            $courses = $user->mes_courses_passager()->paginate(8);
+        }
+        else if($user->hasRole("chauffeur")){
+            $courses = $user->mes_courses_chauffeur()->paginate(8);
+        }
         return view("pages.courses.index", [
             "courses" => $courses,
         ]);
@@ -73,15 +84,31 @@ class CourseController extends Controller
     public function update(UpdateCourseRequest $request, Course $course)
     {
         $course->update($request->validated());        
-        return back()->with('success', 'L\'course a été modifié !');
+        return back()->with('success', 'La course a été modifiée !');
     }
 
     /**
      * Remove the specified resource from storage.
      */
+    public function change(UpdateCourseRequest $request, $id, $etat)
+    {
+        $course = Course::find($id);
+        if($etat == "termine")
+        {
+            $course->etat = "termine";
+            $course->heure_arrivee = now()->format('h:i');
+            $course->update($request->validated());        
+            return back()->with('success', 'La course est terminée !');
+        }
+        else if($etat == "annule")
+        {
+            $course->etat = "annule";
+            $course->update($request->validated());        
+            return back()->with('danger', 'La course a été annulée !');
+        }
+    }
     public function destroy(Course $course)
     {
-        $course->delete();
-        return response()->json(["status" => "Course supprimé !"]);
+       
     }
 }

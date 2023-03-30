@@ -36,9 +36,6 @@
                 <li><a class="dropdown-item" href="{{ route('business.index')}}#nf">Nos forfaits</a></li>
               </ul>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('login')}}">Connexion</a>
-            </li>
             @if(!(auth()->check()))
               <li class="nav-item dropdown">
                 <a class="nav-link  dropdown-toggle" href="#" data-bs-toggle="dropdown">Inscription</a>
@@ -55,6 +52,9 @@
                     <button class="btn btn-outline-dark" type="submit">Déconnexion</button>
                 </li>
             </form>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('login')}}">Connexion</a>
+            </li>
             @endif
           </ul>
         </div>

@@ -13,6 +13,9 @@ footer {
 i{
   color: #dbc64c;
 }
+i:hover{
+  cursor:pointer;
+}
 
 .pagination > li > a,
 .pagination > li > span {

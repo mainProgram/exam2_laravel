@@ -5,8 +5,8 @@
 @section('content')
     <div class="container">
         <h3 class="text-center my-5">
-            Liste des chauffeurs 
-            <a href="{{ route("chauffeurs.create") }}">
+            Liste des comptes business 
+            <a href="{{ route("business.create") }}">
                 <i class="fa fa-plus"></i>
             </a>
         </h3>
@@ -15,26 +15,28 @@
             <div class="alert alert-success mb-2" id="alert">{{ session()->get('success') }}</div>
         @endif
 
-        @if(count($chauffeurs) > 0)
+        @if(count($business) > 0)
             <table class="table table-hover">
                 <thead>
                     <th>Prénom</th>
                     <th>Nom</th>
                     <th>Téléphone</th>
                     <th>Adresse mail</th>
-                    <th>Ville</th>
+                    <th>Entreprise</th>
+                    <th>Secteur</th>
                     <th>Actions</th>
                 </thead>
                 <tbody>
-                    @foreach ($chauffeurs as $chauffeur)
+                    @foreach ($business as $b)
                     <tr>
-                        <td>{{ ucwords($chauffeur->prenom) }}</td>
-                        <td>{{ ucwords($chauffeur->nom) }}</td>
-                        <td>{{ ucwords($chauffeur->telephone) }}</td>
-                        <td>{{ ($chauffeur->email) }}</td>
-                        <td>{{ ($chauffeur->ville) }}</td>
+                        <td>{{ ucwords($b->prenom) }}</td>
+                        <td>{{ ucwords($b->nom) }}</td>
+                        <td>{{ ucwords($b->telephone) }}</td>
+                        <td>{{ ($b->email) }}</td>
+                        <td>{{ ucwords($b->nom_entreprise) }}</td>
+                        <td>{{ ucwords($b->secteur) }}</td>
                         <td>
-                            <a data-id="{{ $chauffeur->id }}" class="delete" role="button">
+                            <a data-id="{{ $b->id }}" class="delete" role="button">
                                 <i class="fas fa-trash"></i>
                             </a>
                         </td>
@@ -42,9 +44,9 @@
                     @endforeach
                 </tbody>
             </table>
-            <div class="mt-3 d-flex justify-content-end">{{ $chauffeurs->links() }}</div>
+            <div class="mt-3 d-flex justify-content-end">{{ $business->links() }}</div>
         @else
-            <h3 class="text-danger my-5">Pas de chauffeur !</h3>
+            <h3 class="text-danger my-5">Pas de compte business !</h3>
         @endif
     </div>
 @stop
@@ -61,7 +63,7 @@
             $("body").on("click", ".delete", function(e)
             {
                 e.preventDefault();
-                var chauffeur_id = $(this).data('id');
+                var business_id = $(this).data('id');
 
                 Swal.fire({
                     title: 'Êtes-vous sûr ?',
@@ -73,9 +75,9 @@
                     cancelButtonText: 'Retour'
                     }).then((result) => {
                     if (result.isConfirmed) {
-                        const url = `<?php echo route("chauffeurs.destroy", false); ?>/${chauffeur_id}`;
+                        const url = `<?php echo route("business.destroy", false); ?>/${business_id}`;
                         var data = {
-                            "id": chauffeur_id
+                            "id": business_id
                         }
                         $.ajax({
                             type: "DELETE",

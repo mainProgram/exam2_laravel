@@ -51,8 +51,10 @@ Route::middleware('auth')->group(function () {
     Route::resource("endroit", EndroitController::class);
     Route::resource("itineraire", ItineraireController::class);
     Route::resource("course", CourseController::class);
+    Route::post('/course/{id}/{etat}', [CourseController::class,'change'])->name("course.change");
     Route::resource("passagers", PassagerController::class);
     Route::resource("chauffeurs", ChauffeurController::class);
+    Route::resource("business", BusinessController::class);
 });
 
 
