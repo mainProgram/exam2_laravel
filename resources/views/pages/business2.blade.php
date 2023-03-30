@@ -3,7 +3,7 @@
 @section('title', 'Business')
 
 @section('content')
-    <section class="about_section layout_padding" id="#cmm">
+    <section class="about_section layout_padding">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-4 col-md-7 offset-lg-2 offset-md-1">

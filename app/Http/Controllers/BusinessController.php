@@ -15,17 +15,7 @@ class BusinessController extends Controller
      */
     public function index()
     {
-        if(Auth::check()){
-            $business = User::whereHas('roles', function ($query) {
-                $query->where('name', 'business');
-            })->paginate(8);
-            return view("pages.business.admin.index", [
-                "business" => $business,
-            ]);
-        }
-        else{
-            return view("pages.business");
-        }
+        return view("pages.business2");
     }
 
     /**

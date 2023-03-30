@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Passagers')
+@section('title', 'Business')
 
 @section('content')
    <div class="hero_area">
